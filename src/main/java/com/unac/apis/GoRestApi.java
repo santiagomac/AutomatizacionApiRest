@@ -1,11 +1,13 @@
 package com.unac.apis;
 
+import com.unac.UserUpdateRequest;
 import com.unac.restinteractions.RestInteractions;
 
 public class GoRestApi {
 
-    private static final String TOKEN = "e871d08829b6c03f39b4eea4d1e51522ab2cf5b59685c8d082f196db681b6254";
+    private static final String TOKEN = "0a5779cb205a4c1f09d6f8629ffe200c4620032c46a062d9a2b3529dd1b8d149";
     private static String pathName = "name";
+    private static String pathEmail = "email";
 
     public static void setBaseUrl(String baseUrl) {
         RestInteractions.setBaseUrl(baseUrl);
@@ -15,8 +17,18 @@ public class GoRestApi {
         RestInteractions.executionGetToken(endPoint,idUser,TOKEN);
     }
 
+    public static void executionPutMethod(String endpoint, String idUser, UserUpdateRequest userUpdateRequest){
+        RestInteractions.executionPutMethod(endpoint, idUser, TOKEN, userUpdateRequest);
+    }
+
     public static void validateResponse(Integer statusCode, String name) {
     RestInteractions.validatecode(statusCode);
     RestInteractions.validateDataResponse(name,pathName);
+    }
+
+    public static void validateResponse(Integer statusCode, String name, String email){
+        RestInteractions.validatecode(statusCode);
+        RestInteractions.validateDataResponse(name, pathName);
+        RestInteractions.validateDataResponse(email, pathEmail);
     }
 }
