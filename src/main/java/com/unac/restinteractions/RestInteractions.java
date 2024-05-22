@@ -6,6 +6,8 @@ import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import org.junit.Before;
 
+import java.util.Map;
+
 import static net.serenitybdd.screenplay.actors.OnStage.setTheStage;
 import static org.junit.Assert.assertEquals;
 
@@ -41,12 +43,14 @@ public class RestInteractions {
 
     public static void validatecode(Integer statusCode) {
         Integer statusActual = SerenityRest.lastResponse().statusCode();
-        assertEquals(statusActual,statusCode);
+        assertEquals(statusCode, statusActual);
     }
 
     public static void validateDataResponse(String name, String pathName) {
-    String nombreActual = SerenityRest.lastResponse()
-            .jsonPath().getString(pathName);
-    assertEquals(nombreActual, name);
+    Map<String, String> object = SerenityRest.lastResponse()
+            .jsonPath()
+            .getJsonObject("data");
+    String campoEvaluar = object.get(pathName);
+    assertEquals(name, campoEvaluar);
     }
 }
